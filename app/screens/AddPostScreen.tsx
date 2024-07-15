@@ -18,16 +18,6 @@ export type ImageType = {
   name: string;
   type: string;
 };
-
-const initialValue = {
-  title: '',
-  desc: '',
-  categort: '1',
-  address: '',
-  price: '',
-  image: '',
-};
-
 export const local_data = [
   {
     value: 'Furniture',
@@ -62,9 +52,18 @@ export const local_data = [
     lable: 'House',
   },
 ];
+const initialValue = {
+  title: '',
+  desc: '',
+  category: local_data[0].value,
+  address: '',
+  price: '',
+  image: '',
+};
+
 const defaultPlaceholder = '../assets/images/placeholder.jpeg';
 const SelectCategories = ({setFieldValue}: any) => {
-  const [country, setCountry] = useState(local_data[0].value);
+  const [category, setCategory] = useState(local_data[0].value);
 
   return (
     <Dropdown
@@ -72,15 +71,15 @@ const SelectCategories = ({setFieldValue}: any) => {
       selectedTextStyle={styles.selectedTextStyle}
       placeholderStyle={styles.placeholderStyle}
       maxHeight={200}
-      value={country}
+      value={category}
       data={local_data}
       valueField="value"
       labelField="lable"
       placeholder="Select categories"
       searchPlaceholder="Search..."
       onChange={({value}) => {
-        setCountry(value);
-        setFieldValue('categort', value);
+        setCategory(value);
+        setFieldValue('category', value);
       }}
     />
   );
