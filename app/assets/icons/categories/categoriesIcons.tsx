@@ -7,7 +7,7 @@ import HorseIcon from './HorseIcon';
 import HouseIcon from './HouseIcon';
 import JobsIcon from './JobsIcon';
 
-export const categoriesList = [
+export const categoriesList: ICategoriesList[] = [
   {
     component: CarIcon,
     name: 'Car',
@@ -41,3 +41,7 @@ export const categoriesList = [
     name: 'Jobs',
   },
 ];
+export interface ICategoriesList {
+  component: React.ComponentType<any>;
+  name: string;
+}
