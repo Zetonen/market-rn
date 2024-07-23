@@ -8,11 +8,17 @@ import {latest} from '../assets/images/latest/latest';
 
 const HomeScreen = () => {
   return (
-    <ScrollView className="flex-1 pt-4 px-6 bg-white">
+    <ScrollView
+      nestedScrollEnabled={true}
+      className="flex-1 pt-4 px-6 bg-white">
       <Header />
       <Slider />
       <Categories />
-      <LatestItemsList latestItemList={latest} heading="Latest Items" />
+      <LatestItemsList
+        latestItemList={latest}
+        heading="Latest Items"
+        isScroll={false}
+      />
     </ScrollView>
   );
 };

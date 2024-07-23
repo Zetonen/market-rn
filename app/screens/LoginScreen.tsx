@@ -1,7 +1,13 @@
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+  const auth = useSelector(state => state.auth);
+  console.log(auth);
+
   return (
     <View>
       <Image
@@ -13,7 +19,9 @@ const LoginScreen = () => {
         <Text className="text-[18px] text-slate-500 mt-6">
           Buy sell Marketplace where you can sell old item and make real money
         </Text>
-        <TouchableOpacity className="p-4 rounded-full bg-blue-500 mt-20">
+        <TouchableOpacity
+          onPress={() => navigation.navigate('authentication')}
+          className="p-4 rounded-full bg-blue-500 mt-20">
           <Text className="text-center text-[18px] text-white">
             Get Started
           </Text>

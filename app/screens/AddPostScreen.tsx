@@ -54,7 +54,7 @@ export const local_data = [
 ];
 const initialValue = {
   title: '',
-  desc: '',
+  description: '',
   category: local_data[0].value,
   address: '',
   price: '',
@@ -132,7 +132,7 @@ const AddPostScreen = () => {
                 placeholder="Description"
                 numberOfLines={5}
                 multiline={true}
-                onChangeText={handleChange('desc')}
+                onChangeText={handleChange('description')}
               />
               <TextInput
                 style={styles.input}

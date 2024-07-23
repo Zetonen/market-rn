@@ -4,12 +4,8 @@ import {useRoute} from '@react-navigation/native';
 import {latest} from '../../assets/images/latest/latest';
 import LatestItemsList from './LatestItemsList';
 
-interface IListParams {
-  category: string;
-}
-
 const ItemList = () => {
-  const {params}: {params: IListParams} = useRoute();
+  const {params} = useRoute();
   const filterList = latest.filter(item => item.category === params?.category);
 
   return (
