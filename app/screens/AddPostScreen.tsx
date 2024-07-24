@@ -8,10 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Formik} from 'formik';
 import {Dropdown} from 'react-native-element-dropdown';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {useDefaultImage} from '../hook/useDefaultImage';
+import {addPost} from '../store/apiSlice/operations';
+import {readFile} from 'react-native-fs';
+import {selectOneFile} from '../store/apiSlice';
 
 export type ImageType = {
   uri: string;
@@ -61,7 +65,6 @@ const initialValue = {
   image: '',
 };
 
-const defaultPlaceholder = '../assets/images/placeholder.jpeg';
 const SelectCategories = ({setFieldValue}: any) => {
   const [category, setCategory] = useState(local_data[0].value);
 
@@ -86,11 +89,13 @@ const SelectCategories = ({setFieldValue}: any) => {
 };
 
 const AddPostScreen = () => {
-  const [selectImage, setSelectImage] = useState('');
-  const imageSource = selectImage
-    ? {uri: selectImage}
-    : require(defaultPlaceholder);
+  const [selectImageUri, setSelectImageUri] = useState('');
+  const [selectImage, setSelectImage] = useState({});
 
+  const imageSource = useDefaultImage(selectImageUri);
+  useEffect(() => {
+    console.log(selectImageUri);
+  }, [selectImageUri]);
   const ImagePicker = async () => {
     const options = {
       mediaType: 'photo',
@@ -98,9 +103,18 @@ const AddPostScreen = () => {
     const result = (await launchImageLibrary(options as any)) as {
       assets: ImageType[];
     };
-
-    setSelectImage(result.assets[0].uri);
+    console.log(result);
+    setSelectImage(result.assets[0]);
+    setSelectImageUri(result.assets[0].uri);
   };
+  // const loadImageBase64 = async capturedImageURI => {
+  //   try {
+  //     const base64Data = await readFile(capturedImageURI, 'base64');
+  //     return 'data:image/jpeg;base64,' + base64Data;
+  //   } catch (error) {
+  //     console.error('Error converting image to base64:', error);
+  //   }
+  // };
   return (
     <KeyboardAvoidingView>
       <ScrollView className="mx-8 pt-4">
@@ -117,7 +131,16 @@ const AddPostScreen = () => {
         </TouchableOpacity>
         <Formik
           initialValues={initialValue}
-          onSubmit={value => console.log(value)}>
+          onSubmit={async value => {
+            // const img = await loadImageBase64(selectImage);
+            console.log({...value, image: selectImage});
+            const formData = {...value, image: selectImage};
+            const data = new FormData();
+            for (const key in formData) {
+              data.append(key, formData[key]);
+            }
+            addPost(formData);
+          }}>
           {({handleChange, handleSubmit, setFieldValue, values}) => (
             <View>
               <TextInput

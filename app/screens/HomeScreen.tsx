@@ -1,25 +1,18 @@
-import {ScrollView} from 'react-native';
+import {View} from 'react-native';
 import React from 'react';
 import Header from '../components/UI/Header';
 import Slider from '../components/UI/Slider';
 import Categories from '../components/UI/Categories';
-import LatestItemsList from '../components/UI/LatestItemsList';
-import {latest} from '../assets/images/latest/latest';
+// import LatestItemsList from '../components/UI/LatestItemsList';
 
 const HomeScreen = () => {
   return (
-    <ScrollView
-      nestedScrollEnabled={true}
-      className="flex-1 pt-4 px-6 bg-white">
+    <View className="flex-1 pt-4 px-6 bg-white">
       <Header />
       <Slider />
       <Categories />
-      <LatestItemsList
-        latestItemList={latest}
-        heading="Latest Items"
-        isScroll={false}
-      />
-    </ScrollView>
+      {/* <LatestItemsList heading="Latest Items" isScroll={false} /> */}
+    </View>
   );
 };
 

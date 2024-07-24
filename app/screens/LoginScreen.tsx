@@ -1,12 +1,9 @@
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const auth = useSelector(state => state.auth);
-  console.log(auth);
 
   return (
     <View>

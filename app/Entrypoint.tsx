@@ -9,7 +9,6 @@ import {refreshUser} from './store/dataSlice/authSlice/operations';
 const Entrypoint = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const dispatch: AppDispatch = useDispatch();
-  console.log(isAuthenticated);
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);

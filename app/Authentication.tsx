@@ -46,7 +46,6 @@ export default function Authentication() {
             <Formik
               initialValues={initialSignUpValue}
               onSubmit={value => {
-                console.log(value);
                 dispatch(register(value));
               }}>
               {({handleChange, handleSubmit, values}) => (

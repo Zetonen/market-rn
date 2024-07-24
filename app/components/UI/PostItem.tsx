@@ -1,10 +1,12 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
-import {ILatestItems} from '../../assets/images/latest/latest';
 import {useNavigation} from '@react-navigation/native';
+import {IPost} from '../../store/dataSlice/exploreSlice/type';
+import {useDefaultImage} from '../../hook/useDefaultImage';
 
-const PostItem = ({item}: {item: ILatestItems}) => {
+const PostItem = ({item}: {item: IPost}) => {
   const navigation = useNavigation();
+  const imageSource = useDefaultImage(item.image);
 
   return (
     <TouchableOpacity
@@ -15,7 +17,10 @@ const PostItem = ({item}: {item: ILatestItems}) => {
       }}
       className="flex-1 justify-between m-2 p-2 border-[1px] border-slate-200 rounded-lg">
       <View>
-        <Image className="w-full h-[170px] rounded-lg" source={item.uri} />
+        <Image
+          className="w-full h-[170px] object-contain rounded-lg"
+          source={imageSource}
+        />
         <Text className="mt-2 font-bold text=[15px] ">{item.title}</Text>
         <Text className="font-bold text=[20px] text-blue-500">
           $ {item.price}

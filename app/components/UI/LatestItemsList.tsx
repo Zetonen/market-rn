@@ -1,30 +1,33 @@
 import {View, Text, FlatList} from 'react-native';
 import React from 'react';
-import {ILatestItems} from '../../assets/images/latest/latest';
 import PostItem from './PostItem';
-import {useRoute} from '@react-navigation/native';
+import {IPost} from '../../store/dataSlice/exploreSlice/type';
 
 const LatestItemsList = ({
-  latestItemList,
+  list,
   heading,
   isScroll = true,
 }: {
-  latestItemList: ILatestItems[];
+  list: IPost[];
   heading: string;
   isScroll?: boolean;
 }) => {
-  const {params} = useRoute();
-  console.log(params);
-
   return (
     <View>
-      <Text className="font-bold text-[20px] mb-1">{heading}</Text>
-      <FlatList
-        data={latestItemList}
-        scrollEnabled={isScroll}
-        numColumns={2}
-        renderItem={({item}: {item: ILatestItems}) => <PostItem item={item} />}
-      />
+      <Text className="font-bold text-[20px] mb-1 px-4">{heading}</Text>
+
+      {list.length > 0 && (
+        <FlatList
+          data={list}
+          scrollEnabled={isScroll}
+          numColumns={2}
+          renderItem={({item}: {item: IPost}) => {
+            console.log(item);
+
+            return <PostItem item={item} key={item._id} />;
+          }}
+        />
+      )}
     </View>
   );
 };

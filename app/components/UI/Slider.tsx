@@ -2,9 +2,6 @@ import {View, Image, StyleSheet, FlatList} from 'react-native';
 import React from 'react';
 import {IImageSl, sliderImg} from '../../assets/images/slider/slider';
 
-// const sliderList = require('../../assets/images/slider/slider.jpeg');
-// console.log(sliderImg);
-
 const Slider = () => {
   return (
     <View className="mb-2">
@@ -13,8 +10,6 @@ const Slider = () => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({item}: {item: IImageSl}) => {
-          // console.log(item);
-
           return (
             <View>
               <Image style={styles.image} source={item.uri} />

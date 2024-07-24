@@ -12,6 +12,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import {authReducer} from './dataSlice/authSlice';
+import {exploreReducer} from './dataSlice/exploreSlice';
 
 const persistConfig = {
   key: 'root',
@@ -23,6 +24,7 @@ export const store = configureStore({
   reducer: {
     app: appReducer,
     auth: persistReducer(persistConfig, authReducer),
+    explore: exploreReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

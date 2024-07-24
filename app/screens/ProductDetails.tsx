@@ -1,25 +1,20 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
+import {useDefaultImage} from '../hook/useDefaultImage';
 
 const ProductDetails = () => {
   const {params} = useRoute();
   const [product, setProduct] = useState(null);
+  const imageSource = useDefaultImage(product?.image);
+
   useEffect(() => {
     params && setProduct(params.product);
-    console.log(params);
   }, [params, setProduct]);
 
   return (
     <ScrollView>
-      <Image className="w-full h-[350px]" source={product?.uri} />
+      <Image className="w-full h-[350px]" source={imageSource} />
       <View className="p-3">
         <Text className="text-[24px] font-bold">{product?.title}</Text>
         <View className="mt-1 p-1 w-[100px] bg-blue-200 rounded-full">
@@ -28,18 +23,22 @@ const ProductDetails = () => {
           </Text>
         </View>
         <Text className="mt-2 text-[18px] font-bold">Description</Text>
-        <Text className="text-[16px] text-gray-500">{product?.desc}</Text>
+        <Text className="text-[16px] text-gray-500">
+          {product?.description}
+        </Text>
       </View>
       <View className="p-4 flex flex-row gap-x-3 items-center bg-blue-100">
         <View className="bg-green-800 rounded-full justify-center items-center w-12 h-12">
           <Text className="text-white text-[18px] font-bold">
-            {product?.userImg}
+            {product?.user.userName[0]}
           </Text>
         </View>
         <View>
-          <Text className="text-[18px] font-bold">{product?.userName}</Text>
+          <Text className="text-[18px] font-bold">
+            {product?.user.userName}
+          </Text>
           <Text className="text-gray-500 text-[16px]">
-            {product?.userEmail}
+            {product?.user.email}
           </Text>
         </View>
       </View>
